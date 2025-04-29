@@ -6,7 +6,7 @@ import { AuthRequest, AuthResponse } from '../../interfaces/auth/auth';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseService {
-  private readonly baseUrl = 'https://reqres.in/api';
+  private readonly baseUrl = 'https://task-react-auth-backend.eapi.joincoded.com/api/auth';
 
   constructor(_http: HttpClient) {
     super(_http);
@@ -24,10 +24,21 @@ export class AuthService extends BaseService {
     );
   }
 
-  register(data: AuthRequest): Observable<AuthResponse> {
-    return this.post<AuthResponse, AuthRequest>(
+  // register(data: AuthRequest): Observable<AuthResponse> {
+  //   return this.post<AuthResponse, AuthRequest>(
+  //     `${this.baseUrl}/register`,
+  //     data
+  //   ).pipe(
+  //     catchError((error) => {
+  //       console.error('Registration failed:', error);
+  //       return throwError(() => error);
+  //     })
+  //   );
+  // }
+  register(formData: FormData): Observable<any> {
+    return this.post<AuthResponse, any>(
       `${this.baseUrl}/register`,
-      data
+      formData
     ).pipe(
       catchError((error) => {
         console.error('Registration failed:', error);
